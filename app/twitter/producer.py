@@ -2,7 +2,6 @@
     This is the producer file that streams the tweets from the Twitter Streaming API into Kafka
 '''
 
-import utils.config as config
 import tweepy
 from kafka import KafkaProducer
 import json
