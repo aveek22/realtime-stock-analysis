@@ -35,20 +35,27 @@ class MyStreamListener(tweepy.StreamListener):
                           
     def on_status(self, status):
         
-        # Extract the tweet response from the tweet status
-        tweet_response_str = self.extract_status(status)
-        
-        # Send messages to the Kafka topic
-        try:
-            self.producer.send('my_first_topic', tweet_response_str.encode('utf-8'))
-        except Exception as error:
-            print(f'Error sending data to Kafka topic. {error}')
+        if(status.lang == 'en'):
+            # Extract the tweet response from the tweet status
+            tweet_response_str, tweet_hashtags_str = self.extract_status(status)
+            
+            # Send messages to the Kafka topic
+            try:
+                if(tweet_response_str):
+                    print(f'Tweet Response: {tweet_response_str}')
+                    self.producer.send('topic-twitter-response', tweet_response_str.encode('utf-8'))
+                    print(f'Tweet Hashtags: {tweet_hashtags_str}')
+                    self.producer.send('topic-twitter-hashtags', tweet_hashtags_str.encode('utf-8'))
+            except Exception as error:
+                print(f'Error sending data to Kafka topic. {error}')
 
     def extract_status(self,status):
+        
         try:
             tweet_dttm          = status.created_at
             tweet_id            = status.id_str
-            tweet_text          = status.text.encode('utf-8')
+            # tweet_text          = status.text.encode('utf-8')
+            tweet_text          = status.full_text.encode('utf-8')
             entities            = status.entities
             source              = status.source
             user_screen_name    = status.user.screen_name
@@ -87,21 +94,39 @@ class MyStreamListener(tweepy.StreamListener):
         except Exception as error:
             print(f'Error preparing tweet_repsponse from status. {error}')
 
+
+        try:
+            # Create an empty list of hashtags...
+            list_hashtags = []
+
+            # Create a dictionary of each tweet_id and hashtag combination
+            for hashtag in tweet_response['hashtags']:
+                dict_hashtag = {
+                    'tweet_id' : tweet_response['tweet_id'],
+                    'hashtag' : hashtag['text'],
+                    'lang' : tweet_response['lang']
+                }
+                list_hashtags.append(dict_hashtag)
+        except Exception as error:
+            print(f'Error in preparing hashtags. {error}')
+
+
+
         try:
             tweet_response_str = json.dumps(tweet_response)
-            print(f'Tweet Response: {tweet_response_str}')
+            tweet_hashtags_str = json.dumps(list_hashtags)
         except Exception as error:
             print(f'Error converting tweet response as JSON. {error}')
             tweet_response_str = False
 
-        return tweet_response_str
+        return tweet_response_str, tweet_hashtags_str
 
 def main():
     
     try:
         myStreamListener = MyStreamListener()
         myStream = tweepy.Stream(auth = api.auth, listener=myStreamListener)
-        myStream.filter(track=['Covid19'])
+        myStream.filter(track=['covid19'])
         # myStream.filter(follow=["168206079"])
     except Exception as error:
         print(f'Error fetching streaming data. {error}')

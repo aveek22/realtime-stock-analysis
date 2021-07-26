@@ -1,0 +1,37 @@
+{
+    "tweet_dttm": "2021-07-26T02:58:06",
+    "tweet_id": "1419492195355201537",
+    "tweet_text": "RT @LibresTeInforma: #Vacunas #Covid19 Abre la inscripci\u00f3n para todo el territorio de la provincia de #Corrientes\nhttps://t.co/AICqBGdP8m",
+    "hashtags": [
+        {
+            "text": "Vacunas",
+            "indices": [
+                21,
+                29
+            ]
+        },
+        {
+            "text": "Covid19",
+            "indices": [
+                30,
+                38
+            ]
+        },
+        {
+            "text": "Corrientes",
+            "indices": [
+                102,
+                113
+            ]
+        }
+    ],
+    "source": "Twitter Web App",
+    "user_screen_name": "_neslev",
+    "geo": null,
+    "coordinates": null,
+    "contributors": null,
+    "retweet_count": 0,
+    "favorite_count": 0,
+    "is_retweet": false,
+    "lang": "es"
+}
