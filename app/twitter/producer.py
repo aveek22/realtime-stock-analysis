@@ -52,10 +52,20 @@ class MyStreamListener(tweepy.StreamListener):
     def extract_status(self,status):
         
         try:
+            if hasattr(status, 'retweeted_status') and hasattr(status.retweeted_status, 'extended_tweet'):
+                tweet_text_raw = status.retweeted_status.extended_tweet['full_text']
+            if hasattr(status, 'extended_tweet'):
+                tweet_text_raw = status.extended_tweet['full_text']
+            else:
+                tweet_text_raw = status.text
+        except AttributeError as error:
+            print(f'Error in extracting tweet text. {error}')
+        
+        
+        try:
             tweet_dttm          = status.created_at
             tweet_id            = status.id_str
-            # tweet_text          = status.text.encode('utf-8')
-            tweet_text          = status.full_text.encode('utf-8')
+            tweet_text          = tweet_text_raw.encode('utf-8')
             entities            = status.entities
             source              = status.source
             user_screen_name    = status.user.screen_name
