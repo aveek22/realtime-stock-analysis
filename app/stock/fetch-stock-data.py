@@ -32,7 +32,7 @@ def on_open(ws):
             "action" : "subscribe",
             # "trades": ["AAPL"],
             # "quotes": ["AAPL"]#,
-            "bars": ["AAPL"]
+            "bars": ["AAPL","MSFT","GOOGL","FB"]
         }
         ws.send(json.dumps(listen_message))
     except Exception as error:

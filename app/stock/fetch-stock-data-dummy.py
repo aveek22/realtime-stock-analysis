@@ -21,13 +21,13 @@ def generate_dummy_data(symbol):
 
     try:
         # Generate dummy stock data
-        close = round(close+np.random.uniform(-200,200),5)
+        close = round(close+np.random.uniform(0,200),5)
         message = {'T':"b",
                 'S':symbol,
-                'o':round(close+np.random.uniform(-1,1),5),
+                'o':round(close+np.random.uniform(0,1),5),
                 'c':close,
                 'h':round(close+np.random.uniform(0,1),5),
-                'l':round(close+np.random.uniform(-1,0),5),
+                'l':round(close+np.random.uniform(0,0),5),
                 't':str(datetime.datetime.now()),
                 'v':round(np.random.uniform(0,1)*6e2,0),
                 'vw':close,}
