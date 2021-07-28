@@ -1,8 +1,10 @@
-# realtime-stock-analysis
-Realtime Analysis on Stock Data from Twitter Streams
+# Realtime Stock Market Sentiment Analysis 
+Realtime Sentiment Analysis on Stock Data from Twitter Streams
 
 
-#### Add the following environment variables to the bash profile
+### Environment Variables
+
+Add the following environment variables to your bash profile
 
 
     export ALPACA_API_KEY=""
@@ -16,19 +18,19 @@ Realtime Analysis on Stock Data from Twitter Streams
 
 
 ### How to start program
-Run Zookeeper
+Step 1: Run Zookeeper
 
     cd ~
     cd ProgramFiles/kafka/kafka_2.13-2.8.0
     bin/zookeeper-server-start.sh config/zookeeper.properties
 
-Start Kafka Server
+Step 2: Start Kafka Server
     
     cd ~
     cd ProgramFiles/kafka/kafka_2.13-2.8.0
     bin/kafka-server-start.sh config/server.properties
 
-Create Topics if not created already
+Step 3: Create Topics if not created already
 
     kafka-topics.sh --bootstrap-server localhost:9092 --topic topic-twitter-response --create --partitions 3 --replication-factor 1
 
