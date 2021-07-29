@@ -4,7 +4,6 @@ from nltk.tokenize import word_tokenize
 import re, string
 import pickle
 
-
 try:
     file_path = '/Users/aveek/Codebase/masters-thesis/realtime-stock-analysis/app/twitter/utils'
     f = open(f'{file_path}/my_classifier', 'rb')
@@ -41,7 +40,6 @@ def remove_noise(tweet_tokens, stop_words = ()):
     
     return cleaned_tokens
 
-
 def get_tweet_sentiment(custom_tweet):
 
     try:
@@ -52,7 +50,6 @@ def get_tweet_sentiment(custom_tweet):
         sentiment = False
     
     return sentiment
-
 
 if __name__ == '__main__':
     custom_tweet = 'I am happy with you.'
