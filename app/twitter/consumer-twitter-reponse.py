@@ -2,6 +2,7 @@ from kafka import KafkaConsumer
 import utils.database as db
 import utils.util as ut
 import json
+import nlp
 
 def main():
     try:
@@ -39,7 +40,10 @@ def main():
                 # is_sensitive = message['is_sensitive'],
                 lang = message['lang']
 
-                db.insert_twitter_stream(tweet_dttm,tweet_id,tweet_text,source,user_screen_name,geo,coordinates,contributors,retweet_count,favorite_count,is_retweet,lang)
+                # Get sentiment from NLP
+                sentiment = nlp.get_tweet_sentiment(tweet_text)
+
+                db.insert_twitter_stream(tweet_dttm,tweet_id,tweet_text,source,user_screen_name,geo,coordinates,contributors,retweet_count,favorite_count,is_retweet,lang,sentiment)
             except Exception as error:
                 print(f'Error in reading message from the consumer. {error}')
 

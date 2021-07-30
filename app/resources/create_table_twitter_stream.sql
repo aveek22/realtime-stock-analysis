@@ -14,6 +14,7 @@ CREATE TABLE twitter_stream_data(
     is_retweet          boolean,
     is_sensitive        boolean,
     lang                varchar(20),
+    sentiment           varchar(20),
     created_dttm        timestamp 
 );
 

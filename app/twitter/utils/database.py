@@ -26,7 +26,7 @@ def connect_database():
         return False
 
 
-def insert_twitter_stream(tweet_dttm,tweet_id,tweet_text,source,user_screen_name,geo,coordinates,contributors,retweet_count,favorite_count,is_retweet,lang):
+def insert_twitter_stream(tweet_dttm,tweet_id,tweet_text,source,user_screen_name,geo,coordinates,contributors,retweet_count,favorite_count,is_retweet,lang,sentiment):
     '''
         This method will insert a record into the registered_users table.
     '''
@@ -39,7 +39,7 @@ def insert_twitter_stream(tweet_dttm,tweet_id,tweet_text,source,user_screen_name
         try:
             cursor = connection.cursor()
             logging.info(f'Calling stored procedure public.usp_insert_registered_users...')
-            sql = f'INSERT INTO twitter_stream_data(tweet_dttm,tweet_id,tweet_text,source,user_screen_name,geo,coordinates,contributors,retweet_count,favorite_count,is_retweet,lang) VALUES (\'{tweet_dttm}\',\'{tweet_id}\',\'{tweet_text}\',\'{source}\',\'{user_screen_name}\',\'{geo}\',\'{coordinates}\',\'{contributors}\',{retweet_count},{favorite_count},{is_retweet},\'{lang}\');'
+            sql = f'INSERT INTO twitter_stream_data(tweet_dttm,tweet_id,tweet_text,source,user_screen_name,geo,coordinates,contributors,retweet_count,favorite_count,is_retweet,lang,sentiment) VALUES (\'{tweet_dttm}\',\'{tweet_id}\',\'{tweet_text}\',\'{source}\',\'{user_screen_name}\',\'{geo}\',\'{coordinates}\',\'{contributors}\',{retweet_count},{favorite_count},{is_retweet},\'{lang}\',\'{sentiment}\');'
             cursor.execute(sql)
             connection.commit()
             # logging.info(f'User: {username} for Tenant: {tenantId} populated in the registered_users table.')
