@@ -28,7 +28,7 @@ def generate_dummy_data(symbol):
                 'c':close,
                 'h':round(close+np.random.uniform(0,1),5),
                 'l':round(close+np.random.uniform(0,0),5),
-                't':str(datetime.datetime.now()),
+                't':str(datetime.datetime.utcnow()),
                 'v':round(np.random.uniform(0,1)*6e2,0),
                 'vw':close,}
     except Exception as error:

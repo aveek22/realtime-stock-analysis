@@ -137,6 +137,7 @@ def main():
         myStreamListener = MyStreamListener()
         myStream = tweepy.Stream(auth = api.auth, listener=myStreamListener)
         myStream.filter(track=['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'FB'])
+        # myStream.filter(track=['covid19'])
     except Exception as error:
         print(f'Error fetching streaming data. {error}')
 
